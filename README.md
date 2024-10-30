@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TextRT
 
-## Getting Started
+TextRT is a real-time collaborative text editor built using WebSockets, designed to enable multiple users to edit documents simultaneously. The application provides a seamless experience for users to collaborate on projects and share ideas in real time.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Real-Time Collaboration**: Multiple users can edit the same document simultaneously, with changes reflected instantly.
+- **User-Friendly Interface**: A simple and intuitive interface designed to enhance the writing experience.
+- **WebSocket Integration**: Efficient real-time communication between clients and the server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS
+- **WebSocket Library**: ws
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+To get started with TextRT, follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/arkorty/TextRT.git
+   cd TextRT
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Install dependencies**:
 
-## Deploy on Vercel
+   ```bash
+   bun install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Run the application**:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   bun run dev
+   ```
+
+4. **Access the application**: Open your browser and navigate to `http://localhost:3000`.
+
+## Usage
+
+- **Creating a Room**: Users can create a new document from the dashboard.
+- **Inviting Collaborators**: Share a link with collaborators to allow them to join the editing session.
+- **Editing**: Start typing in the editor; changes will be reflected in real-time for all users.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
