@@ -13,6 +13,9 @@ import {
 import { BackgroundBeams } from "../../components/ui/background-beams";
 import { Textarea } from "../../components/ui/textarea";
 import { Badge } from "../../components/ui/badge";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface TextUpdate {
   type: "text-update";
@@ -33,7 +36,7 @@ interface JoinRoom {
 
 type Message = TextUpdate | InitialContent | JoinRoom;
 
-const WS_URL = `wss://api.webark.in/textrt/api/v1`;
+const WS_URL = `${process.env.NEXT_PUBLIC_WS_URL}/textrt/api/v1`;
 
 const Room = () => {
   const router = useRouter();
