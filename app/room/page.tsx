@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
 import {
   Card,
   CardContent,
@@ -34,17 +33,22 @@ interface JoinRoom {
 
 type Message = TextUpdate | InitialContent | JoinRoom;
 
-const WS_URL = `ws://localhost:8080`;
+const WS_URL = `wss://api.webark.in/textrt/api/v1`;
 
 const Room = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const roomCode = searchParams.get("code");
 
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const socketRef = useRef<WebSocket | null>(null);
+  const [isClient, setIsClient] = useState(false);
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("Disconnected");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const debouncedSend = useCallback(
     debounce((ws: WebSocket, content: string, code: string) => {
@@ -59,58 +63,54 @@ const Room = () => {
   );
 
   useEffect(() => {
-    if (!roomCode) return;
+    if (!isClient || !roomCode) return;
 
     const ws = new WebSocket(WS_URL);
+    socketRef.current = ws;
 
     ws.onopen = () => {
       setStatus("Connected");
-      const message: JoinRoom = {
-        type: "join-room",
-        code: roomCode,
-      };
+      const message: JoinRoom = { type: "join-room", code: roomCode };
       ws.send(JSON.stringify(message));
     };
 
     ws.onmessage = (event) => {
       const message: Message = JSON.parse(event.data);
-      switch (message.type) {
-        case "initial-content":
-          setContent(message.content);
-          break;
-        case "text-update":
-          setContent(message.content);
-          break;
-        default:
-          console.error("Unknown message type:", message.type);
+      if (
+        message.type === "initial-content" ||
+        message.type === "text-update"
+      ) {
+        setContent(message.content);
       }
     };
 
     ws.onclose = () => {
       setStatus("Disconnected");
-      setSocket(null);
+      socketRef.current = null;
     };
 
-    ws.onerror = (error) => {
-      setError("WebSocket error: " + error.message);
+    ws.onerror = () => {
+      setError("WebSocket error occurred");
     };
-
-    setSocket(ws);
 
     return () => {
       ws.close();
+      socketRef.current = null;
     };
-  }, [roomCode]);
+  }, [roomCode, isClient]);
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
-    if (socket?.readyState === WebSocket.OPEN) {
-      debouncedSend(socket, newContent, roomCode!);
+    if (socketRef.current?.readyState === WebSocket.OPEN) {
+      debouncedSend(socketRef.current, newContent, roomCode!);
     }
   };
 
+  if (!isClient) return null;
+
   if (!roomCode) {
-    return null; // Handle case where roomCode is not defined
+    router.push("/");
+    return null;
   }
 
   return (
@@ -142,7 +142,7 @@ const Room = () => {
               </p>
               <div className="flex gap-2">
                 <Button
-                  variant="primary"
+                  variant="default"
                   className="bg-blue-400 text-white"
                   onClick={() => {
                     navigator.clipboard.writeText(window.location.href);
@@ -163,4 +163,10 @@ const Room = () => {
   );
 };
 
-export default Room;
+const RoomWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Room />
+  </Suspense>
+);
+
+export default RoomWrapper;

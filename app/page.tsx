@@ -23,8 +23,7 @@ const Home = () => {
   };
 
   const createNewRoom = () => {
-    const chars =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let code = "";
     for (let i = 0; i < 6; i++) {
       code += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -48,7 +47,7 @@ const Home = () => {
           <CardContent className="space-y-6">
             <Button
               onClick={createNewRoom}
-              variant="primary"
+              variant="default"
               className="w-full bg-blue-600 text-white font-bold"
             >
               Create New Room
@@ -64,7 +63,7 @@ const Home = () => {
               />
               <Button
                 onClick={joinRoom}
-                variant="primary"
+                variant="default"
                 className="bg-green-500 text-black font-bold"
               >
                 Join
