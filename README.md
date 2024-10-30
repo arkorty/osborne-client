@@ -1,7 +1,6 @@
 # TextRT
 
-TextRT is a real-time collaborative text editor built using WebSockets, designed to enable multiple users to edit documents simultaneously. The application provides a seamless experience for users to collaborate on projects and share ideas in real time.
-
+TextRT is a real-time collaborative text editor built using WebSockets, designed to enable multiple users to edit text simultaneously. The application provides a seamless experience for users to collaborate and share ideas in real time. 
 ## Features
 
 - **Real-Time Collaboration**: Multiple users can edit the same document simultaneously, with changes reflected instantly.
