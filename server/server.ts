@@ -3,18 +3,18 @@ import { WebSocketServer, WebSocket } from "ws";
 interface TextUpdate {
   type: "text-update";
   content: string;
-  room: string;
+  code: string;
 }
 
 interface InitialContent {
   type: "initial-content";
   content: string;
-  room: string;
+  code: string;
 }
 
 interface JoinRoom {
   type: "join-room";
-  room: string;
+  code: string;
 }
 
 type Message = TextUpdate | InitialContent | JoinRoom;
@@ -30,7 +30,6 @@ const wss = new WebSocketServer({
   host: "0.0.0.0",
 });
 
-// Keep track of rooms and their content
 const rooms = new Map<string, Room>();
 
 wss.on("connection", (ws: WebSocket) => {
@@ -43,7 +42,6 @@ wss.on("connection", (ws: WebSocket) => {
 
       switch (parsedMessage.type) {
         case "join-room": {
-          // Leave current room if any
           if (currentRoom && rooms.has(currentRoom)) {
             rooms.get(currentRoom)?.clients.delete(ws);
             if (rooms.get(currentRoom)?.clients.size === 0) {
@@ -51,8 +49,7 @@ wss.on("connection", (ws: WebSocket) => {
             }
           }
 
-          // Join new room
-          currentRoom = parsedMessage.room;
+          currentRoom = parsedMessage.code;
           if (!rooms.has(currentRoom)) {
             rooms.set(currentRoom, {
               content: "",
@@ -62,11 +59,10 @@ wss.on("connection", (ws: WebSocket) => {
             rooms.get(currentRoom)?.clients.add(ws);
           }
 
-          // Send initial content
           const initialMessage: InitialContent = {
             type: "initial-content",
             content: rooms.get(currentRoom)?.content || "",
-            room: currentRoom,
+            code: currentRoom,
           };
           ws.send(JSON.stringify(initialMessage));
           break;
@@ -75,14 +71,12 @@ wss.on("connection", (ws: WebSocket) => {
         case "text-update": {
           if (!currentRoom) break;
 
-          const room = rooms.get(currentRoom);
-          if (!room) break;
+          const code = rooms.get(currentRoom);
+          if (!code) break;
 
-          // Update the room content
-          room.content = parsedMessage.content;
+          code.content = parsedMessage.content;
 
-          // Broadcast to all clients in the room except sender
-          room.clients.forEach((client) => {
+          code.clients.forEach((client) => {
             if (client !== ws && client.readyState === WebSocket.OPEN) {
               client.send(JSON.stringify(parsedMessage));
             }
@@ -98,9 +92,9 @@ wss.on("connection", (ws: WebSocket) => {
   ws.on("close", () => {
     console.log("Client disconnected");
     if (currentRoom && rooms.has(currentRoom)) {
-      const room = rooms.get(currentRoom)!;
-      room.clients.delete(ws);
-      if (room.clients.size === 0) {
+      const code = rooms.get(currentRoom)!;
+      code.clients.delete(ws);
+      if (code.clients.size === 0) {
         rooms.delete(currentRoom);
       }
     }
