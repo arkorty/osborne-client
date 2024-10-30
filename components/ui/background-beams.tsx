@@ -60,7 +60,7 @@ export const BackgroundBeams = React.memo(
     return (
       <div
         className={cn(
-          "absolute  h-full w-full inset-0  [mask-size:40px] [mask-repeat:no-repeat] flex items-center justify-center",
+          "absolute  h-full w-full inset-0  [mask-size:40px] [mask-repeat:no-repeat] bg-gradient bg-gradient-to-br from-pink-100 via-blue-100 to-purple-100 flex items-center justify-center",
           className,
         )}
       >
@@ -109,13 +109,21 @@ export const BackgroundBeams = React.memo(
                   duration: Math.random() * 10 + 10,
                   ease: "easeInOut",
                   repeat: Infinity,
-                  delay: Math.random() * 10,
+                  delay: 0,
                 }}
               >
-                <stop stopColor="#00FFFF" stopOpacity="0"></stop>
-                <stop stopColor="#D91656"></stop>
-                <stop offset="32.5%" stopColor="#FF00FF"></stop>
-                <stop offset="100%" stopColor="#00FF00" stopOpacity="0"></stop>
+                <stop stopColor="#FFC107" stopOpacity="0"></stop>{" "}
+                {/* New start color (amber) */}
+                <stop stopColor="#FF5722"></stop>{" "}
+                {/* Mid gradient color (deep orange) */}
+                <stop offset="32.5%" stopColor="#FF9800"></stop>{" "}
+                {/* Another midpoint color (orange) */}
+                <stop
+                  offset="100%"
+                  stopColor="#4CAF50"
+                  stopOpacity="0"
+                ></stop>{" "}
+                {/* End color (green) */}
               </motion.linearGradient>
             ))}
 
