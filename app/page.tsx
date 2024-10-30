@@ -41,7 +41,7 @@ const Home = () => {
               className="text-8xl font-bold text-center text-black"
               style={{ fontFamily: "Pacifico, cursive" }}
             >
-              TextRT
+              Room
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">

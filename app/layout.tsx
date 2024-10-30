@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "TextRT",
+  title: "Room",
   description: "Real-time multi-user text editor with rooms.",
 };
 
