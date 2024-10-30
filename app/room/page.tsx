@@ -136,7 +136,7 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="w-full min-h-[60vh] p-4 rounded-lg bg-white border border-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full min-h-[80vh] p-4 rounded-lg bg-white border border-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Start typing here..."
             />
             <div className="mt-4 flex justify-between items-center">
