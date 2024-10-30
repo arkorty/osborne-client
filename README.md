@@ -1,6 +1,7 @@
-# TextRT
+# Room
 
-TextRT is a real-time collaborative text editor built using WebSockets, designed to enable multiple users to edit text simultaneously. The application provides a seamless experience for users to collaborate and share ideas in real time. 
+Room is a real-time collaborative text editor built using WebSockets, designed to enable multiple users to edit text simultaneously. The application provides a seamless experience for users to collaborate and share ideas in real time.
+
 ## Features
 
 - **Real-Time Collaboration**: Multiple users can edit the same document simultaneously, with changes reflected instantly.
@@ -14,13 +15,13 @@ TextRT is a real-time collaborative text editor built using WebSockets, designed
 
 ## Installation
 
-To get started with TextRT, follow these steps:
+To get started with Room, follow these steps:
 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/arkorty/TextRT.git
-   cd TextRT
+   git clone https://github.com/arkorty/Room.git
+   cd Room
    ```
 
 2. **Install dependencies**:
