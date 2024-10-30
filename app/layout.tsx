@@ -16,6 +16,15 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Room",
   description: "Real-time multi-user text editor with rooms.",
+  openGraph: {
+    title: "Room",
+    description: "Real-time multi-user text editor with rooms.",
+    url: "https://room.webark.in",
+    siteName: "Room",
+    images: "https://room.webark.in/og-image.png",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
