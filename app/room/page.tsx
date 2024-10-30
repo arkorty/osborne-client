@@ -36,7 +36,7 @@ interface JoinRoom {
 
 type Message = TextUpdate | InitialContent | JoinRoom;
 
-const WS_URL = `${process.env.NEXT_PUBLIC_WS_URL}/textrt/api/v1`;
+const WS_URL = `${process.env.NEXT_PUBLIC_WS_URL}/room/api/v2`;
 
 const Room = () => {
   const router = useRouter();
