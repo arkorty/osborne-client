@@ -4,12 +4,7 @@ import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import debounce from "lodash/debounce";
 import { Button } from "../../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
+import { Card, CardContent, CardHeader } from "../../components/ui/card";
 import { BackgroundBeams } from "../../components/ui/background-beams";
 import { Textarea } from "../../components/ui/textarea";
 import { Badge } from "../../components/ui/badge";
@@ -62,17 +57,18 @@ const Room = () => {
       };
       ws.send(JSON.stringify(message));
     }, 100),
-    [],
+    []
   );
 
-  useEffect(() => {
-    if (!isClient || !roomCode) return;
+  const connectSocket = useCallback(() => {
+    if (!roomCode) return;
 
     const ws = new WebSocket(WS_URL);
     socketRef.current = ws;
 
     ws.onopen = () => {
       setStatus("Connected");
+      setError("");
       const message: JoinRoom = { type: "join-room", code: roomCode };
       ws.send(JSON.stringify(message));
     };
@@ -95,17 +91,27 @@ const Room = () => {
     ws.onerror = () => {
       setError("WebSocket error occurred");
     };
+  }, [roomCode]);
+
+  useEffect(() => {
+    if (!isClient || !roomCode) return;
+
+    connectSocket();
 
     return () => {
-      ws.close();
+      socketRef.current?.close();
       socketRef.current = null;
     };
-  }, [roomCode, isClient]);
+  }, [roomCode, isClient, connectSocket]);
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
+
     if (socketRef.current?.readyState === WebSocket.OPEN) {
       debouncedSend(socketRef.current, newContent, roomCode!);
+    } else if (status === "Disconnected") {
+      debouncedSend.cancel();
+      connectSocket();
     }
   };
 
@@ -122,7 +128,15 @@ const Room = () => {
       <div className="flex flex-col items-center p-4 relative z-10">
         <Card className="w-full max-w-4xl bg-inherit backdrop-blur-sm bg-opacity-0">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-xl font-bold">{roomCode}</CardTitle>
+            <Button
+              className="text-lg bg-violet-400 hover:bg-violet-500 font-semibold"
+              onClick={() => {
+                navigator.clipboard.writeText(roomCode);
+                alert("Room code copied to clipboard!");
+              }}
+            >
+              {roomCode}
+            </Button>
             <Badge variant={status === "Connected" ? "success" : "destructive"}>
               {status}
             </Badge>
@@ -136,26 +150,27 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="w-full min-h-[80vh] p-4 rounded-lg bg-white border border-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-100 border border-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Start typing here..."
             />
-            <div className="mt-4 flex justify-between items-center">
-              <p className="text-sm text-gray-400">
-                Share this room code with others: {roomCode}
-              </p>
+            <div className="mt-4 flex justify-end items-center">
               <div className="flex gap-2">
                 <Button
                   variant="default"
-                  className="bg-blue-400 text-white"
+                  className="font-semibold text-white bg-blue-400 hover:bg-blue-500"
                   onClick={() => {
                     navigator.clipboard.writeText(window.location.href);
                     alert("Room link copied to clipboard!");
                   }}
                 >
-                  Copy Room Link
+                  Copy Link
                 </Button>
-                <Button variant="destructive" onClick={() => router.push("/")}>
-                  Leave Room
+                <Button
+                  className="font-semibold bg-red-500 hover:bg-red-600"
+                  variant="destructive"
+                  onClick={() => router.push("/")}
+                >
+                  Leave
                 </Button>
               </div>
             </div>
@@ -167,7 +182,7 @@ const Room = () => {
 };
 
 const RoomWrapper = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<div>Connecting to the room...</div>}>
     <Room />
   </Suspense>
 );
