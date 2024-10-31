@@ -44,24 +44,36 @@ const Room = () => {
   const [status, setStatus] = useState("Disconnected");
   const [error, setError] = useState("");
 
+  const contentRef = useRef(content);
+
+  useEffect(() => {
+    contentRef.current = content;
+  }, [content]);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   const debouncedSend = useCallback(
     debounce((ws: WebSocket, content: string, code: string) => {
-      const message: TextUpdate = {
-        type: "text-update",
-        content,
-        code,
-      };
-      ws.send(JSON.stringify(message));
+      if (ws.readyState === WebSocket.OPEN) {
+        const message: TextUpdate = {
+          type: "text-update",
+          content,
+          code,
+        };
+        ws.send(JSON.stringify(message));
+      }
     }, 100),
-    []
+    [],
   );
 
   const connectSocket = useCallback(() => {
-    if (!roomCode) return;
+    if (!roomCode || socketRef.current?.readyState === WebSocket.OPEN) return;
+
+    if (socketRef.current) {
+      socketRef.current.close();
+    }
 
     const ws = new WebSocket(WS_URL);
     socketRef.current = ws;
@@ -79,17 +91,30 @@ const Room = () => {
         message.type === "initial-content" ||
         message.type === "text-update"
       ) {
-        setContent(message.content);
+        if (message.content !== contentRef.current) {
+          setContent(message.content);
+        }
       }
     };
 
     ws.onclose = () => {
       setStatus("Disconnected");
-      socketRef.current = null;
+
+      setTimeout(() => {
+        if (socketRef.current === ws) {
+          socketRef.current = null;
+        }
+      }, 0);
     };
 
     ws.onerror = () => {
       setError("WebSocket error occurred");
+
+      setTimeout(() => {
+        if (socketRef.current === ws) {
+          connectSocket();
+        }
+      }, 1000);
     };
   }, [roomCode]);
 
@@ -98,11 +123,21 @@ const Room = () => {
 
     connectSocket();
 
+    const pingInterval = setInterval(() => {
+      if (socketRef.current?.readyState === WebSocket.OPEN) {
+        socketRef.current.send(JSON.stringify({ type: "ping" }));
+      }
+    }, 30000);
+
     return () => {
-      socketRef.current?.close();
-      socketRef.current = null;
+      clearInterval(pingInterval);
+      if (socketRef.current) {
+        socketRef.current.close();
+        socketRef.current = null;
+      }
+      debouncedSend.cancel();
     };
-  }, [roomCode, isClient, connectSocket]);
+  }, [roomCode, isClient, connectSocket, debouncedSend]);
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
