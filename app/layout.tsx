@@ -21,7 +21,14 @@ export const metadata: Metadata = {
     description: "Real-time multi-user text editor with rooms.",
     url: "https://room.webark.in",
     siteName: "Room",
-    images: "https://room.webark.in/og-image.png",
+    images: [
+      {
+          url: "https://room.webark.in/og-image.png",
+          width: 1500,
+          height: 768,
+          alt: "Room",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
