@@ -60,8 +60,8 @@ const Room = () => {
     setIsClient(true);
   }, []);
 
-  const debouncedSend = debounce(
-    (ws: WebSocket, content: string, code: string) => {
+  const debouncedSend = useCallback(
+    debounce((ws: WebSocket, content: string, code: string) => {
       if (ws.readyState === WebSocket.OPEN) {
         const message: TextUpdate = {
           type: "text-update",
@@ -70,8 +70,8 @@ const Room = () => {
         };
         ws.send(JSON.stringify(message));
       }
-    },
-    100
+    }, 100),
+    []
   );
 
   const connectSocket = useCallback(() => {
