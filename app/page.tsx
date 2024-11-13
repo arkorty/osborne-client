@@ -56,6 +56,7 @@ const Home = () => {
             onChange={(value) => setNewRoomCode(value.toUpperCase())}
             maxLength={6}
             pattern="[A-Z0-9]*"
+            inputMode="text"
           >
             <InputOTPGroup>
               {[...Array(6)].map((_, index) => (
