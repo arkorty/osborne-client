@@ -71,7 +71,7 @@ const Room = () => {
         ws.send(JSON.stringify(message));
       }
     }, 100),
-    []
+    [],
   );
 
   const connectSocket = useCallback(() => {
@@ -208,7 +208,7 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="w-full min-h-[85vh] p-4 rounded-lg bg-neutral-100 border border-gray-300"
+              className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-100 border border-gray-300"
               placeholder="What's on your mind?"
             />
             <div className="mt-4 flex justify-end items-center">
@@ -271,7 +271,7 @@ const SkeletonMirror = () => {
             <Skeleton className="w-20 h-6 rounded bg-green-300" />
           </CardHeader>
           <CardContent>
-            <Skeleton className="w-full min-h-[85vh] p-4 rounded-lg bg-neutral-200 border border-gray-300" />
+            <Skeleton className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-200 border border-gray-300" />
             <div className="mt-4 flex justify-end items-center">
               <div className="flex gap-2">
                 <Skeleton className="w-10 h-10 rounded bg-blue-300" />
