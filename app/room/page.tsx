@@ -71,7 +71,7 @@ const Room = () => {
         ws.send(JSON.stringify(message));
       }
     }, 100),
-    [],
+    []
   );
 
   const connectSocket = useCallback(() => {
@@ -166,24 +166,59 @@ const Room = () => {
   return (
     <div className="relative min-h-screen">
       <div className="flex flex-col items-center p-4 relative z-10">
-        <Card className="w-full max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0">
+        <Card className="w-full min-h-[95vh] max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0 flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between">
-            <HoverCard>
-              <HoverCardTrigger>
-                <Button
-                  className="text-lg bg-violet-400 hover:bg-violet-500 font-semibold"
-                  onClick={() => {
-                    navigator.clipboard.writeText(roomCode);
-                    alert("Room code copied to clipboard!");
-                  }}
-                >
-                  {roomCode}
-                </Button>
-              </HoverCardTrigger>
-              <HoverCardContent className="py-1 px-2 w-auto bg-violet-200 text-xs">
-                copy room code
-              </HoverCardContent>
-            </HoverCard>
+            <div className="flex justify-end items-center">
+              <div className="flex gap-2">
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Button
+                      className="text-lg bg-violet-400 hover:bg-violet-500 font-semibold"
+                      onClick={() => {
+                        navigator.clipboard.writeText(roomCode);
+                        alert("Room code copied to clipboard!");
+                      }}
+                    >
+                      {roomCode}
+                    </Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="py-1 px-2 w-auto bg-violet-200 text-xs">
+                    copy room code
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Button
+                      variant="default"
+                      className="text-white bg-blue-400 hover:bg-blue-500"
+                      onClick={() => {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert("Room link copied to clipboard!");
+                      }}
+                    >
+                      <Link2></Link2>
+                    </Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="py-1 px-2 w-auto bg-blue-200 text-xs">
+                    copy link to this page
+                  </HoverCardContent>
+                </HoverCard>
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Button
+                      className=" bg-red-500 hover:bg-red-600"
+                      variant="destructive"
+                      onClick={() => router.push("/")}
+                    >
+                      <LogOut></LogOut>
+                    </Button>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="py-1 px-2 w-auto bg-red-200 text-xs">
+                    return to home
+                  </HoverCardContent>
+                </HoverCard>
+              </div>
+            </div>
             <HoverCard>
               <HoverCardTrigger>
                 <Badge
@@ -199,7 +234,7 @@ const Room = () => {
               </HoverCardContent>
             </HoverCard>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-grow flex flex-col">
             {error && status !== "Connected" && (
               <div className="mb-4 p-4 bg-red-500/10 text-red-500 rounded">
                 {error}
@@ -208,50 +243,9 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-100 border border-gray-300"
+              className="flex-grow w-full p-4 rounded-lg bg-neutral-100 border border-gray-300 resize-none"
               placeholder="What's on your mind?"
             />
-            <div className="mt-4 flex justify-end items-center">
-              <div className="flex gap-2">
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Button
-                      variant="default"
-                      className="w-10 h-10 text-white bg-blue-400 hover:bg-blue-500"
-                      onClick={() => {
-                        navigator.clipboard.writeText(window.location.href);
-                        alert("Room link copied to clipboard!");
-                      }}
-                    >
-                      <Link2></Link2>
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent
-                    className="py-1 px-2 w-auto bg-blue-200 text-xs"
-                    side="top"
-                  >
-                    copy link to this page
-                  </HoverCardContent>
-                </HoverCard>
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Button
-                      className="w-10 h-10 bg-red-500 hover:bg-red-600"
-                      variant="destructive"
-                      onClick={() => router.push("/")}
-                    >
-                      <LogOut></LogOut>
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent
-                    className="py-1 px-2 w-auto bg-red-200 text-xs"
-                    side="top"
-                  >
-                    return to home
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>
