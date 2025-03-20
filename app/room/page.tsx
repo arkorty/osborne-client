@@ -11,12 +11,20 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Link2, LogOut } from "lucide-react";
+import { Link2, LogOut, Sun, Moon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import debounce from "lodash/debounce";
 import dotenv from "dotenv";
+import { JetBrains_Mono } from "next/font/google";
+import { ThemeProvider, useTheme } from "next-themes";
 
 dotenv.config();
+
+const jetbrainsMono = JetBrains_Mono({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
 
 interface TextUpdate {
   type: "text-update";
@@ -156,6 +164,8 @@ const Room = () => {
     }
   };
 
+  const { theme, setTheme } = useTheme();
+
   if (!isClient) return null;
 
   if (!roomCode) {
@@ -164,86 +174,101 @@ const Room = () => {
   }
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-[#fbf1c7] dark:bg-[#282828]">
       <div className="flex flex-col items-center p-4 relative z-10">
-        <Card className="w-full min-h-[95vh] max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0 flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex justify-end items-center">
-              <div className="flex gap-2">
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Button
-                      className="text-lg bg-violet-400 hover:bg-violet-500 font-semibold"
-                      onClick={() => {
-                        navigator.clipboard.writeText(roomCode);
-                        alert("Room code copied to clipboard!");
-                      }}
-                    >
-                      {roomCode}
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="py-1 px-2 w-auto bg-violet-200 text-xs">
-                    copy room code
-                  </HoverCardContent>
-                </HoverCard>
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Button
-                      variant="default"
-                      className="text-white bg-blue-400 hover:bg-blue-500"
-                      onClick={() => {
-                        navigator.clipboard.writeText(window.location.href);
-                        alert("Room link copied to clipboard!");
-                      }}
-                    >
-                      <Link2></Link2>
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="py-1 px-2 w-auto bg-blue-200 text-xs">
-                    copy link to this page
-                  </HoverCardContent>
-                </HoverCard>
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Button
-                      className=" bg-red-500 hover:bg-red-600"
-                      variant="destructive"
-                      onClick={() => router.push("/")}
-                    >
-                      <LogOut></LogOut>
-                    </Button>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="py-1 px-2 w-auto bg-red-200 text-xs">
-                    return to home
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+        <Card className="w-full min-h-[95vh] max-w-4xl bg-[#ebdbb2] dark:bg-[#282828] shadow-md rounded-lg flex flex-col">
+          <CardHeader className="flex flex-row items-center justify-between p-2">
+            <div className="flex gap-2">
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Button
+                    className="text-sm bg-[#d3869b] hover:bg-[#d65d0e] font-bold"
+                    onClick={() => {
+                      navigator.clipboard.writeText(roomCode);
+                      alert("Room code copied to clipboard!");
+                    }}
+                  >
+                    {roomCode}
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                  copy room code
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Button
+                    variant="default"
+                    className="text-white bg-[#458588] w-10 hover:bg-[#83a598] p-1"
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert("Room link copied to clipboard!");
+                    }}
+                  >
+                    <Link2 size={16} />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                  copy link to this page
+                </HoverCardContent>
+              </HoverCard>
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Button
+                    className="bg-[#cc241d] w-10 hover:bg-[#fb4934] p-1"
+                    variant="destructive"
+                    onClick={() => router.push("/")}
+                  >
+                    <LogOut size={16} />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                  return to home
+                </HoverCardContent>
+              </HoverCard>
             </div>
-            <HoverCard>
-              <HoverCardTrigger>
-                <Badge
-                  variant={status === "Connected" ? "success" : "destructive"}
-                >
-                  {status}
-                </Badge>
-              </HoverCardTrigger>
-              <HoverCardContent className="py-1 px-2 w-auto bg-green-200 text-xs">
-                {status === "Connected"
-                  ? "connected to the server"
-                  : "not connected to the server"}
-              </HoverCardContent>
-            </HoverCard>
+            <div className="flex gap-2">
+              <Button
+                className="text-sm bg-[#d5c4a1] dark:bg-[#665c54] hover:bg-[#bdae93] dark:hover:bg-[#504945] font-medium"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                {theme === "dark" ? (
+                  <Sun size={16} className="text-[#fbf1c7]" />
+                ) : (
+                  <Moon size={16} className="text-[#282828]" />
+                )}
+              </Button>
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Badge
+                    variant={status === "Connected" ? "success" : "destructive"}
+                    className={`text-xs ${
+                      status === "Connected"
+                        ? "bg-[#b8bb26] dark:bg-[#98971a]"
+                        : "bg-[#fb4934] dark:bg-[#cc241d]"
+                    }`}
+                  >
+                    {status}
+                  </Badge>
+                </HoverCardTrigger>
+                <HoverCardContent className="py-1 px-2 w-auto bg-[#b8bb26] dark:bg-[#98971a] text-xs">
+                  {status === "Connected"
+                    ? "connected to the server"
+                    : "not connected to the server"}
+                </HoverCardContent>
+              </HoverCard>
+            </div>
           </CardHeader>
-          <CardContent className="flex-grow flex flex-col">
+          <CardContent className="flex-grow flex flex-col p-2">
             {error && status !== "Connected" && (
-              <div className="mb-4 p-4 bg-red-500/10 text-red-500 rounded">
+              <div className="mb-2 p-2 bg-[#fb4934]/10 text-[#cc241d] rounded text-sm">
                 {error}
               </div>
             )}
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="flex-grow w-full p-4 rounded-lg bg-neutral-100 border border-gray-300 resize-none"
+              className="flex-grow w-full p-2 rounded-lg bg-[#ebdbb2] dark:bg-[#3c3836] border border-[#665c54] dark:border-[#665c54] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2]"
               placeholder="What's on your mind?"
             />
           </CardContent>
@@ -280,9 +305,13 @@ const SkeletonMirror = () => {
 };
 
 const RoomWrapper = () => (
-  <Suspense fallback={<SkeletonMirror />}>
-    <Room />
-  </Suspense>
+  <ThemeProvider attribute="class">
+    <Suspense fallback={<SkeletonMirror />}>
+      <div className={`${jetbrainsMono.variable} font-sans`}>
+        <Room />
+      </div>
+    </Suspense>
+  </ThemeProvider>
 );
 
 export default RoomWrapper;

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -65,5 +67,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-roboto), sans-serif;
+  }
+  textarea {
+    font-family: var(--font-jetbrains-mono), monospace;
   }
 }
