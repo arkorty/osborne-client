@@ -48,7 +48,7 @@ const Home = () => {
               alt="Room Logo"
               width={128}
               height={128}
-              className={`m-2`}
+              className="rounded-2xl"
             ></Image>
           </div>
         </div>
@@ -70,7 +70,9 @@ const Home = () => {
               ))}
             </InputOTPGroup>
           </InputOTP>
-          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">or</span>
+          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">
+            or
+          </span>
           <Button
             onClick={createNewRoom}
             variant="default"
@@ -93,7 +95,9 @@ const SkeletonHome = () => {
         </div>
         <div className="flex flex-col items-center space-y-4">
           <Skeleton className="w-full h-12 rounded-md bg-[#fbf1c7] dark:bg-[#3c3836]" />
-          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">or</span>
+          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">
+            or
+          </span>
           <Skeleton className="w-32 h-12 rounded-lg bg-[#458588]" />
         </div>
       </div>
@@ -102,7 +106,7 @@ const SkeletonHome = () => {
 };
 
 const HomeWrapper = () => (
-  <ThemeProvider attribute="class">
+  <ThemeProvider attribute="class" defaultTheme="dark">
     <Suspense fallback={<SkeletonHome />}>
       <Home />
     </Suspense>

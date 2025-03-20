@@ -14,19 +14,19 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Room",
+  title: "Osborne",
   description: "Real-time multi-user text editor with rooms.",
   openGraph: {
-    title: "Room",
+    title: "Osborne",
     description: "Real-time multi-user text editor with rooms.",
-    url: "https://room.webark.in",
-    siteName: "Room",
+    url: "https://o.webark.in",
+    siteName: "Osborne",
     images: [
       {
-          url: "https://room.webark.in/og-image.png",
+          url: "https://o.webark.in/og-image.png",
           width: 1500,
           height: 768,
-          alt: "Room",
+          alt: "Osborne",
       },
     ],
     locale: "en_US",

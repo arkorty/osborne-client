@@ -163,7 +163,7 @@ const Room = () => {
     }
   };
 
-  const { theme, setTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   if (!isClient) return null;
 
@@ -229,9 +229,11 @@ const Room = () => {
             <div className="flex gap-2">
               <Button
                 className="text-sm bg-[#d5c4a1] dark:bg-[#665c54] hover:bg-[#bdae93] dark:hover:bg-[#504945] font-medium"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                onClick={() =>
+                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                }
               >
-                {theme === "dark" ? (
+                {resolvedTheme === "dark" ? (
                   <Sun size={16} className="text-[#fbf1c7]" />
                 ) : (
                   <Moon size={16} className="text-[#282828]" />
@@ -304,7 +306,7 @@ const SkeletonMirror = () => {
 };
 
 const RoomWrapper = () => (
-  <ThemeProvider attribute="class">
+  <ThemeProvider attribute="class" defaultTheme="dark">
     <Suspense fallback={<SkeletonMirror />}>
       <div className={`${jetbrainsMono.variable} font-sans`}>
         <Room />
