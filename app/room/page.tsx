@@ -3,7 +3,6 @@
 import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -175,9 +174,9 @@ const Room = () => {
 
   return (
     <div className="relative min-h-screen bg-[#fbf1c7] dark:bg-[#282828]">
-      <div className="flex flex-col items-center p-4 relative z-10">
-        <Card className="w-full min-h-[95vh] max-w-4xl bg-[#ebdbb2] dark:bg-[#282828] shadow-md rounded-lg flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between p-2">
+      <div className="flex justify-center">
+        <div className="flex flex-col items-center p-1 relative z-10 w-full min-h-screen max-w-5xl bg-[#ebdbb2] dark:bg-[#282828] shadow-md">
+          <div className="flex flex-row items-center justify-between p-2 w-full">
             <div className="flex gap-2">
               <HoverCard>
                 <HoverCardTrigger>
@@ -205,7 +204,7 @@ const Room = () => {
                       alert("Room link copied to clipboard!");
                     }}
                   >
-                    <Link2 size={16} />
+                    <Link2 size={16} className="text-[#fbf1c7]" />
                   </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
@@ -219,7 +218,7 @@ const Room = () => {
                     variant="destructive"
                     onClick={() => router.push("/")}
                   >
-                    <LogOut size={16} />
+                    <LogOut size={16} className="text-[#fbf1c7]" />
                   </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
@@ -258,8 +257,8 @@ const Room = () => {
                 </HoverCardContent>
               </HoverCard>
             </div>
-          </CardHeader>
-          <CardContent className="flex-grow flex flex-col p-2">
+          </div>
+          <div className="flex-grow flex flex-col p-2 w-full">
             {error && status !== "Connected" && (
               <div className="mb-2 p-2 bg-[#fb4934]/10 text-[#cc241d] rounded text-sm">
                 {error}
@@ -268,11 +267,11 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="flex-grow w-full p-2 rounded-lg bg-[#ebdbb2] dark:bg-[#3c3836] border border-[#665c54] dark:border-[#665c54] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2]"
+              className="flex-grow w-full p-2 rounded-md bg-[#ebdbb2] dark:bg-[#3c3836] border border-[#665c54] dark:border-[#665c54] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2]"
               placeholder="What's on your mind?"
             />
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -282,14 +281,14 @@ const SkeletonMirror = () => {
   return (
     <div className="relative min-h-screen">
       <div className="flex flex-col items-center p-4 relative z-10">
-        <Card className="w-full max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0">
-          <CardHeader className="flex flex-row items-center justify-between">
+        <div className="w-full max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0">
+          <div className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
               <Skeleton className="w-[6.3rem] h-[2.25rem] rounded bg-violet-300" />
             </div>
             <Skeleton className="w-20 h-6 rounded bg-green-300" />
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div>
             <Skeleton className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-200 border border-gray-300" />
             <div className="mt-4 flex justify-end items-center">
               <div className="flex gap-2">
@@ -297,8 +296,8 @@ const SkeletonMirror = () => {
                 <Skeleton className="w-10 h-10 rounded bg-red-400" />
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

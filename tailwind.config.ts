@@ -55,8 +55,7 @@ const config = {
         },
       },
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
-        'jetbrains-mono': ['JetBrains Mono', 'monospace'],
+        "jetbrains-mono": ["JetBrains Mono", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

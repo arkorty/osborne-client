@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/input-otp";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { ThemeProvider } from "next-themes";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Home = () => {
   const router = useRouter();
@@ -37,8 +39,8 @@ const Home = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <Card className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-white/0 bg-opacity-0 dark:bg-gray-800/70 border border-gray-300 dark:border-gray-700 rounded-2xl p-6 flex flex-col items-center">
+    <div className="relative min-h-screen flex items-center justify-center bg-[#fbf1c7] dark:bg-[#282828]">
+      <Card className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-[#ebdbb2]/0 bg-opacity-0 dark:bg-[#282828]/70 border border-[#665c54] dark:border-[#665c54] rounded-2xl p-6 flex flex-col items-center">
         <div className="flex flex-col items-center">
           <div className={`rounded-2xl m-8 bg-black`}>
             <Image
@@ -50,7 +52,7 @@ const Home = () => {
             ></Image>
           </div>
         </div>
-        <CardContent className="flex flex-col items-center space-y-4">
+        <CardContent className="flex flex-col items-center space-y-4 font-jetbrains-mono">
           <InputOTP
             value={newRoomCode}
             onChange={(value) => setNewRoomCode(value.toUpperCase())}
@@ -63,16 +65,16 @@ const Home = () => {
                 <InputOTPSlot
                   key={index}
                   index={index}
-                  className="text-primary bg-white dark:text-secondary dark:caret-white"
+                  className="text-[#3c3836] bg-[#fbf1c7] dark:text-[#ebdbb2] dark:bg-[#3c3836] dark:caret-[#ebdbb2]"
                 />
               ))}
             </InputOTPGroup>
           </InputOTP>
-          <span className="text-lg text-primary/70">or</span>
+          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">or</span>
           <Button
             onClick={createNewRoom}
             variant="default"
-            className="w-min bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700"
+            className="w-min bg-[#458588] text-[#fbf1c7] text-lg font-semibold rounded-lg hover:bg-[#83a598]"
           >
             Create Room
           </Button>
@@ -82,4 +84,29 @@ const Home = () => {
   );
 };
 
-export default Home;
+const SkeletonHome = () => {
+  return (
+    <div className="relative min-h-screen flex items-center justify-center bg-[#fbf1c7] dark:bg-[#282828]">
+      <div className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-[#ebdbb2]/0 bg-opacity-0 dark:bg-[#282828]/70 border border-[#665c54] dark:border-[#665c54] rounded-2xl p-6 flex flex-col items-center">
+        <div className="flex flex-col items-center">
+          <Skeleton className="w-[128px] h-[128px] rounded-2xl bg-black m-8" />
+        </div>
+        <div className="flex flex-col items-center space-y-4">
+          <Skeleton className="w-full h-12 rounded-md bg-[#fbf1c7] dark:bg-[#3c3836]" />
+          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">or</span>
+          <Skeleton className="w-32 h-12 rounded-lg bg-[#458588]" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const HomeWrapper = () => (
+  <ThemeProvider attribute="class">
+    <Suspense fallback={<SkeletonHome />}>
+      <Home />
+    </Suspense>
+  </ThemeProvider>
+);
+
+export default HomeWrapper;
