@@ -173,7 +173,7 @@ const Room = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#fbf1c7] dark:bg-[#282828]">
+    <div className="relative min-h-screen bg-[#fbf1c7] dark:bg-[#3c3836]">
       <div className="flex justify-center">
         <div className="flex flex-col items-center p-1 relative z-10 w-full min-h-screen max-w-5xl bg-[#ebdbb2] dark:bg-[#282828] shadow-md">
           <div className="flex flex-row items-center justify-between p-2 w-full">
@@ -181,7 +181,7 @@ const Room = () => {
               <HoverCard>
                 <HoverCardTrigger>
                   <Button
-                    className="text-sm bg-[#d3869b] hover:bg-[#d65d0e] font-bold"
+                    className="text-sm text-[#fbf1c7] bg-[#d3869b] hover:bg-[#eea2b6] font-bold"
                     onClick={() => {
                       navigator.clipboard.writeText(roomCode);
                       alert("Room code copied to clipboard!");
@@ -190,7 +190,7 @@ const Room = () => {
                     {roomCode}
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
                   copy room code
                 </HoverCardContent>
               </HoverCard>
@@ -198,7 +198,7 @@ const Room = () => {
                 <HoverCardTrigger>
                   <Button
                     variant="default"
-                    className="text-white bg-[#458588] w-10 hover:bg-[#83a598] p-1"
+                    className=" bg-[#458588] w-10 hover:bg-[#83a598] p-1"
                     onClick={() => {
                       navigator.clipboard.writeText(window.location.href);
                       alert("Room link copied to clipboard!");
@@ -207,7 +207,7 @@ const Room = () => {
                     <Link2 size={16} className="text-[#fbf1c7]" />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
                   copy link to this page
                 </HoverCardContent>
               </HoverCard>
@@ -221,24 +221,31 @@ const Room = () => {
                     <LogOut size={16} className="text-[#fbf1c7]" />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
                   return to home
                 </HoverCardContent>
               </HoverCard>
             </div>
             <div className="flex gap-2">
-              <Button
-                className="text-sm bg-[#d5c4a1] dark:bg-[#665c54] hover:bg-[#bdae93] dark:hover:bg-[#504945] font-medium"
-                onClick={() =>
-                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
-                }
-              >
-                {resolvedTheme === "dark" ? (
-                  <Sun size={16} className="text-[#fbf1c7]" />
-                ) : (
-                  <Moon size={16} className="text-[#282828]" />
-                )}
-              </Button>
+              <HoverCard>
+                <HoverCardTrigger>
+                  <Button
+                    className="text-sm w-10 text-[#fbf1c7] bg-[#665c54] hover:bg-[#504945] font-medium"
+                    onClick={() =>
+                      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                    }
+                  >
+                    {resolvedTheme === "dark" ? (
+                      <Sun size={16} />
+                    ) : (
+                      <Moon size={16} />
+                    )}
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
+                  switch theme
+                </HoverCardContent>
+              </HoverCard>
               <HoverCard>
                 <HoverCardTrigger>
                   <Badge
@@ -252,7 +259,7 @@ const Room = () => {
                     {status}
                   </Badge>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto bg-[#b8bb26] dark:bg-[#98971a] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#b8bb26] dark:bg-[#98971a] text-xs">
                   {status === "Connected"
                     ? "connected to the server"
                     : "not connected to the server"}
@@ -269,7 +276,7 @@ const Room = () => {
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="flex-grow w-full p-2 rounded-md bg-[#ebdbb2] dark:bg-[#3c3836] border border-[#665c54] dark:border-[#665c54] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2]"
+              className="flex-grow w-full p-2 rounded-md bg-[#ebdbb2] dark:bg-[#282828] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2] border-none"
               placeholder="What's on your mind?"
             />
           </div>
