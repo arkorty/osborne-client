@@ -39,17 +39,17 @@ const Home = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#fbf1c7] dark:bg-[#282828]">
-      <Card className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-[#ebdbb2]/0 bg-opacity-0 dark:bg-[#282828]/70 border border-[#665c54] dark:border-[#665c54] rounded-2xl p-6 flex flex-col items-center">
+    <div className="relative min-h-screen flex items-center justify-center bg-background dark:bg-background">
+      <Card className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-card/0 bg-opacity-0 dark:bg-card/70 border border-border dark:border-border rounded-2xl p-6 flex flex-col items-center">
         <div className="flex flex-col items-center">
-          <div className={`rounded-2xl m-8 bg-black`}>
+          <div className="rounded-2xl m-8 bg-black">
             <Image
               src="/logo.png"
               alt="Room Logo"
               width={128}
               height={128}
               className="rounded-2xl"
-            ></Image>
+            />
           </div>
         </div>
         <CardContent className="flex flex-col items-center space-y-4 font-jetbrains-mono">
@@ -65,18 +65,18 @@ const Home = () => {
                 <InputOTPSlot
                   key={index}
                   index={index}
-                  className="text-[#3c3836] bg-[#fbf1c7] dark:text-[#ebdbb2] dark:bg-[#3c3836] dark:caret-[#ebdbb2]"
+                  className="text-foreground bg-background dark:text-foreground dark:bg-background dark:caret-foreground"
                 />
               ))}
             </InputOTPGroup>
           </InputOTP>
-          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">
+          <span className="text-lg text-foreground/70 dark:text-foreground/70">
             or
           </span>
           <Button
             onClick={createNewRoom}
             variant="default"
-            className="w-min bg-[#458588] text-[#fbf1c7] text-lg font-semibold rounded-lg hover:bg-[#83a598]"
+            className="w-min bg-primary text-primary-foreground text-lg font-semibold rounded-lg hover:bg-primary/80"
           >
             Create Room
           </Button>
@@ -88,17 +88,17 @@ const Home = () => {
 
 const SkeletonHome = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#fbf1c7] dark:bg-[#282828]">
-      <div className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-[#ebdbb2]/0 bg-opacity-0 dark:bg-[#282828]/70 border border-[#665c54] dark:border-[#665c54] rounded-2xl p-6 flex flex-col items-center">
+    <div className="relative min-h-screen flex items-center justify-center bg-background dark:bg-background">
+      <div className="relative z-10 max-w-md backdrop-blur-sm shadow-lg bg-card/0 bg-opacity-0 dark:bg-card/70 border border-border dark:border-border rounded-2xl p-6 flex flex-col items-center">
         <div className="flex flex-col items-center">
           <Skeleton className="w-[128px] h-[128px] rounded-2xl bg-black m-8" />
         </div>
         <div className="flex flex-col items-center space-y-4">
-          <Skeleton className="w-full h-12 rounded-md bg-[#fbf1c7] dark:bg-[#3c3836]" />
-          <span className="text-lg text-[#3c3836]/70 dark:text-[#ebdbb2]/70">
+          <Skeleton className="w-full h-12 rounded-md bg-background dark:bg-background" />
+          <span className="text-lg text-foreground/70 dark:text-foreground/70">
             or
           </span>
-          <Skeleton className="w-32 h-12 rounded-lg bg-[#458588]" />
+          <Skeleton className="w-32 h-12 rounded-lg bg-primary" />
         </div>
       </div>
     </div>

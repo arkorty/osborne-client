@@ -173,15 +173,15 @@ const Room = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#fbf1c7] dark:bg-[#3c3836]">
+    <div className="relative min-h-screen bg-background dark:bg-background">
       <div className="flex justify-center">
-        <div className="flex flex-col items-center p-1 relative z-10 w-full min-h-screen max-w-5xl bg-[#ebdbb2] dark:bg-[#282828] shadow-md">
+        <div className="flex flex-col items-center p-1 relative z-10 w-full min-h-screen max-w-5xl bg-card dark:bg-card shadow-md">
           <div className="flex flex-row items-center justify-between p-2 w-full">
             <div className="flex gap-2">
               <HoverCard>
                 <HoverCardTrigger>
                   <Button
-                    className="text-sm text-[#fbf1c7] bg-[#d3869b] hover:bg-[#eea2b6] font-bold"
+                    className="text-sm text-primary-foreground bg-chart-1 hover:bg-chart-1/80 font-bold"
                     onClick={() => {
                       navigator.clipboard.writeText(roomCode);
                       alert("Room code copied to clipboard!");
@@ -190,7 +190,7 @@ const Room = () => {
                     {roomCode}
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
                   copy room code
                 </HoverCardContent>
               </HoverCard>
@@ -198,30 +198,30 @@ const Room = () => {
                 <HoverCardTrigger>
                   <Button
                     variant="default"
-                    className=" bg-[#458588] w-10 hover:bg-[#83a598] p-1"
+                    className="bg-primary w-10 hover:bg-primary/80 p-1"
                     onClick={() => {
                       navigator.clipboard.writeText(window.location.href);
                       alert("Room link copied to clipboard!");
                     }}
                   >
-                    <Link2 size={16} className="text-[#fbf1c7]" />
+                    <Link2 size={16} className="text-primary-foreground" />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
                   copy link to this page
                 </HoverCardContent>
               </HoverCard>
               <HoverCard>
                 <HoverCardTrigger>
                   <Button
-                    className="bg-[#cc241d] w-10 hover:bg-[#fb4934] p-1"
+                    className="bg-destructive w-10 hover:bg-destructive/80 p-1"
                     variant="destructive"
                     onClick={() => router.push("/")}
                   >
-                    <LogOut size={16} className="text-[#fbf1c7]" />
+                    <LogOut size={16} className="text-destructive-foreground" />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
                   return to home
                 </HoverCardContent>
               </HoverCard>
@@ -230,7 +230,7 @@ const Room = () => {
               <HoverCard>
                 <HoverCardTrigger>
                   <Button
-                    className="text-sm w-10 text-[#fbf1c7] bg-[#665c54] hover:bg-[#504945] font-medium"
+                    className="text-sm w-10 bg-chart-3 hover:bg-chart-3/80 dark:text-foreground font-medium"
                     onClick={() =>
                       setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }
@@ -242,7 +242,7 @@ const Room = () => {
                     )}
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#fabd2f] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-xs">
                   switch theme
                 </HoverCardContent>
               </HoverCard>
@@ -250,16 +250,16 @@ const Room = () => {
                 <HoverCardTrigger>
                   <Badge
                     variant={status === "Connected" ? "success" : "destructive"}
-                    className={`text-xs ${
+                    className={`text-xs text-foreground dark:text-background ${
                       status === "Connected"
-                        ? "bg-[#b8bb26] dark:bg-[#98971a]"
-                        : "bg-[#fb4934] dark:bg-[#cc241d]"
+                        ? "bg-success hover:bg-success/80"
+                        : "bg-error hover:bg-error/80"
                     }`}
                   >
                     {status}
                   </Badge>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-[#282828] bg-[#b8bb26] dark:bg-[#98971a] text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-xs">
                   {status === "Connected"
                     ? "connected to the server"
                     : "not connected to the server"}
@@ -269,14 +269,14 @@ const Room = () => {
           </div>
           <div className="flex-grow flex flex-col p-2 w-full">
             {error && status !== "Connected" && (
-              <div className="mb-2 p-2 bg-[#fb4934]/10 text-[#cc241d] rounded text-sm">
+              <div className="mb-2 p-2 bg-destructive/10 text-destructive rounded text-sm">
                 {error}
               </div>
             )}
             <Textarea
               value={content}
               onChange={(e) => handleContentChange(e.target.value)}
-              className="flex-grow w-full p-2 rounded-md bg-[#ebdbb2] dark:bg-[#282828] resize-none font-jetbrains-mono text-sm text-[#3c3836] dark:text-[#ebdbb2] border-none"
+              className="flex-grow w-full p-2 rounded-md bg-card dark:bg-card resize-none font-jetbrains-mono text-sm text-foreground dark:text-foreground border-none"
               placeholder="What's on your mind?"
             />
           </div>
@@ -293,16 +293,16 @@ const SkeletonMirror = () => {
         <div className="w-full max-w-6xl bg-inherit backdrop-blur-sm bg-opacity-0">
           <div className="flex flex-row items-center justify-between">
             <div className="flex items-center gap-2">
-              <Skeleton className="w-[6.3rem] h-[2.25rem] rounded bg-violet-300" />
+              <Skeleton className="w-[6.3rem] h-[2.25rem] rounded bg-chart-3" />
             </div>
-            <Skeleton className="w-20 h-6 rounded bg-green-300" />
+            <Skeleton className="w-20 h-6 rounded bg-chart-2" />
           </div>
           <div>
-            <Skeleton className="w-full min-h-[80vh] p-4 rounded-lg bg-neutral-200 border border-gray-300" />
+            <Skeleton className="w-full min-h-[80vh] p-4 rounded-lg bg-muted border border-border" />
             <div className="mt-4 flex justify-end items-center">
               <div className="flex gap-2">
-                <Skeleton className="w-10 h-10 rounded bg-blue-300" />
-                <Skeleton className="w-10 h-10 rounded bg-red-400" />
+                <Skeleton className="w-10 h-10 rounded bg-chart-1" />
+                <Skeleton className="w-10 h-10 rounded bg-destructive" />
               </div>
             </div>
           </div>
