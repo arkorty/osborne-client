@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     siteName: "Osborne",
     images: [
       {
-          url: "https://o.webark.in/og-image.png",
-          width: 1500,
-          height: 768,
-          alt: "Osborne",
+        url: "https://o.webark.in/og-image.png",
+        width: 1500,
+        height: 768,
+        alt: "Osborne",
       },
     ],
     locale: "en_US",
@@ -40,9 +40,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>

@@ -78,7 +78,7 @@ const Room = () => {
         ws.send(JSON.stringify(message));
       }
     }, 100),
-    []
+    [],
   );
 
   const connectSocket = useCallback(() => {
@@ -181,7 +181,7 @@ const Room = () => {
               <HoverCard>
                 <HoverCardTrigger>
                   <Button
-                    className="text-sm text-primary-foreground bg-chart-1 hover:bg-chart-1/80 font-bold"
+                    className="text-sm text-foreground dark:text-background bg-chart-1 hover:bg-chart-1/80 font-bold"
                     onClick={() => {
                       navigator.clipboard.writeText(roomCode);
                       alert("Room code copied to clipboard!");
@@ -190,7 +190,7 @@ const Room = () => {
                     {roomCode}
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs border-foreground">
                   copy room code
                 </HoverCardContent>
               </HoverCard>
@@ -204,10 +204,13 @@ const Room = () => {
                       alert("Room link copied to clipboard!");
                     }}
                   >
-                    <Link2 size={16} className="text-primary-foreground" />
+                    <Link2
+                      size={16}
+                      className="text-foreground dark:text-background"
+                    />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs border-foreground">
                   copy link to this page
                 </HoverCardContent>
               </HoverCard>
@@ -221,7 +224,7 @@ const Room = () => {
                     <LogOut size={16} className="text-destructive-foreground" />
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-popover-foreground bg-popover text-xs border-foreground">
                   return to home
                 </HoverCardContent>
               </HoverCard>
@@ -242,7 +245,7 @@ const Room = () => {
                     )}
                   </Button>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-xs border-foreground">
                   switch theme
                 </HoverCardContent>
               </HoverCard>
@@ -259,7 +262,7 @@ const Room = () => {
                     {status}
                   </Badge>
                 </HoverCardTrigger>
-                <HoverCardContent className="py-1 px-2 w-auto text-xs">
+                <HoverCardContent className="py-1 px-2 w-auto text-xs border-foreground">
                   {status === "Connected"
                     ? "connected to the server"
                     : "not connected to the server"}

@@ -6,74 +6,74 @@
 
 @layer base {
   :root {
-    --background: 40 20% 95%; /* #fbf1c7 */
-    --foreground: 40 20% 20%; /* #3c3836 */
-    --card: 40 20% 92%; /* #ebdbb2 */
-    --card-foreground: 40 20% 20%; /* #3c3836 */
-    --popover: 40 20% 92%; /* #ebdbb2 */
-    --popover-foreground: 40 20% 20%; /* #3c3836 */
-    --primary: 30 60% 40%; /* #d3869b */
-    --primary-foreground: 40 20% 95%; /* #fbf1c7 */
-    --secondary: 40 40% 85%; /* #b8bb26 */
-    --secondary-foreground: 30 60% 20%; /* #504945 */
-    --muted: 40 30% 85%; /* #a89984 */
-    --muted-foreground: 40 10% 40%; /* #665c54 */
-    --accent: 40 40% 85%; /* #fabd2f */
-    --accent-foreground: 30 60% 20%; /* #504945 */
-    --destructive: 0 60% 50%; /* #cc241d */
-    --destructive-foreground: 40 20% 95%; /* #fbf1c7 */
-    --border: 40 30% 75%; /* #d5c4a1 */
-    --input: 40 30% 75%; /* #d5c4a1 */
-    --ring: 30 60% 40%; /* #d3869b */
+    --background: rgb(251, 241, 199);
+    --foreground: rgb(60, 56, 54);
+    --card: rgb(235, 219, 178);
+    --card-foreground: rgb(60, 56, 54);
+    --popover: rgb(235, 219, 178);
+    --popover-foreground: rgb(60, 56, 54);
+    --primary: rgb(211, 134, 155);
+    --primary-foreground: rgb(251, 241, 199);
+    --secondary: rgb(184, 187, 38);
+    --secondary-foreground: rgb(80, 73, 69);
+    --muted: rgb(168, 153, 132);
+    --muted-foreground: rgb(102, 92, 84);
+    --accent: rgb(250, 189, 47);
+    --accent-foreground: rgb(80, 73, 69);
+    --destructive: rgb(204, 36, 29);
+    --destructive-foreground: rgb(251, 241, 199);
+    --border: rgb(213, 196, 161);
+    --input: rgb(213, 196, 161);
+    --ring: rgb(211, 134, 155);
     --radius: 0.5rem;
-    --chart-1: 20 80% 50%; /* #fabd2f */
-    --chart-2: 120 50% 45%; /* #83a598 */
-    --chart-3: 200 40% 40%; /* #458588 */
-    --chart-4: 10 80% 55%; /* #fe8019 */
-    --chart-5: 0 70% 50%; /* #fb4934 */
-    --info: #83a598;
-    --info-foreground: #282828;
-    --warning: #d79921;
-    --warning-foreground: #282828;
-    --success: #b8bb26;
-    --success-foreground: #282828;
-    --error: #fb4934;
-    --error-foreground: #282828;
+    --chart-1: rgb(250, 189, 47);
+    --chart-2: rgb(131, 165, 152);
+    --chart-3: rgb(69, 133, 136);
+    --chart-4: rgb(254, 128, 25);
+    --chart-5: rgb(251, 73, 52);
+    --info: rgb(131, 165, 152);
+    --info-foreground: rgb(40, 40, 40);
+    --warning: rgb(215, 153, 33);
+    --warning-foreground: rgb(40, 40, 40);
+    --success: rgb(184, 187, 38);
+    --success-foreground: rgb(40, 40, 40);
+    --error: rgb(251, 73, 52);
+    --error-foreground: rgb(40, 40, 40);
   }
 
   .dark {
-    --background: 30 30% 10%; /* #282828 */
-    --foreground: 40 20% 90%; /* #ebdbb2 */
-    --card: 30 30% 15%; /* #3c3836 */
-    --card-foreground: 40 20% 90%; /* #ebdbb2 */
-    --popover: 30 30% 15%; /* #3c3836 */
-    --popover-foreground: 40 20% 90%; /* #ebdbb2 */
-    --primary: 30 80% 60%; /* #d3869b */
-    --primary-foreground: 30 30% 10%; /* #282828 */
-    --secondary: 30 30% 25%; /* #504945 */
-    --secondary-foreground: 40 20% 90%; /* #ebdbb2 */
-    --muted: 30 30% 25%; /* #504945 */
-    --muted-foreground: 40 10% 60%; /* #a89984 */
-    --accent: 30 30% 25%; /* #504945 */
-    --accent-foreground: 40 20% 90%; /* #ebdbb2 */
-    --destructive: 0 60% 50%; /* #cc241d */
-    --destructive-foreground: 40 20% 90%; /* #ebdbb2 */
-    --border: 30 30% 35%; /* #665c54 */
-    --input: 30 30% 35%; /* #665c54 */
-    --ring: 30 80% 60%; /* #d3869b */
-    --chart-1: 50 90% 50%; /* #fabd2f */
-    --chart-2: 140 60% 40%; /* #83a598 */
-    --chart-3: 210 50% 35%; /* #458588 */
-    --chart-4: 20 85% 50%; /* #fe8019 */
-    --chart-5: 0 75% 45%; /* #fb4934 */
-    --info: #83a598;
-    --info-foreground: #ebdbb2;
-    --warning: #d79921;
-    --warning-foreground: #ebdbb2;
-    --success: #b8bb26;
-    --success-foreground: #ebdbb2;
-    --error: #fb4934;
-    --error-foreground: #ebdbb2;
+    --background: rgb(40, 40, 40);
+    --foreground: rgb(235, 219, 178);
+    --card: rgb(60, 56, 54);
+    --card-foreground: rgb(235, 219, 178);
+    --popover: rgb(60, 56, 54);
+    --popover-foreground: rgb(235, 219, 178);
+    --primary: rgb(211, 134, 155);
+    --primary-foreground: rgb(40, 40, 40);
+    --secondary: rgb(80, 73, 69);
+    --secondary-foreground: rgb(235, 219, 178);
+    --muted: rgb(80, 73, 69);
+    --muted-foreground: rgb(168, 153, 132);
+    --accent: rgb(80, 73, 69);
+    --accent-foreground: rgb(235, 219, 178);
+    --destructive: rgb(204, 36, 29);
+    --destructive-foreground: rgb(235, 219, 178);
+    --border: rgb(102, 92, 84);
+    --input: rgb(102, 92, 84);
+    --ring: rgb(211, 134, 155);
+    --chart-1: rgb(250, 189, 47);
+    --chart-2: rgb(131, 165, 152);
+    --chart-3: rgb(69, 133, 136);
+    --chart-4: rgb(254, 128, 25);
+    --chart-5: rgb(251, 73, 52);
+    --info: rgb(131, 165, 152);
+    --info-foreground: rgb(235, 219, 178);
+    --warning: rgb(215, 153, 33);
+    --warning-foreground: rgb(235, 219, 178);
+    --success: rgb(184, 187, 38);
+    --success-foreground: rgb(235, 219, 178);
+    --error: rgb(251, 73, 52);
+    --error-foreground: rgb(235, 219, 178);
   }
 }
 
